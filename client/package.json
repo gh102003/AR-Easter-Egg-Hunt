@@ -1,0 +1,23 @@
+{
+  "name": "ar-easter-egg-hunt-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev_server": "webpack serve --config webpack-dev.config.js",
+    "dev": "webpack --config webpack-dev.config.js",
+    "build": "webpack --mode production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ar-js-org/ar.js": "^3.3.3-es6-beta-02",
+    "aframe": "^1.2.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3"
+  }
+}
