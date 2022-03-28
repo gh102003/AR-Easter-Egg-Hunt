@@ -13,7 +13,7 @@ const Message = require("./message.js");
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/leaderboard", express.static("leaderboardClient"));
+// app.use("/leaderboard", express.static("leaderboardClient"));
 
 
 const players = [];
@@ -84,7 +84,7 @@ app.put("/game-settings", (req, res) => {
   try {
     isGameRunning = req.body.running;
     console.log("Game running: " + isGameRunning.toString());
-    return res.status(200).json({ isGameRunning });
+    return res.status(200).json({ running: isGameRunning });
   } catch (err) {
     return res.status(400).json({ message: error.message });
   }
@@ -119,8 +119,10 @@ app.get("/messages", (req, res) => {
 // #endregion messages
 
 // app.listen(8081);
-https.createServer({
-  pfx: fs.readFileSync('C:\\Users\\georg\\Documents\\Programming\\cert.pfx'),
-  passphrase: "kilt-leggings-dispatch"
-}, app)
-  .listen(8081);
+// https.createServer({
+//   pfx: fs.readFileSync('C:\\Users\\georg\\Documents\\Programming\\cert.pfx'),
+//   passphrase: "kilt-leggings-dispatch"
+// }, app)
+//   .listen(8081);
+
+module.exports = app;

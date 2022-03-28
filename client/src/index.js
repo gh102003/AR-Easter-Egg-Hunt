@@ -69,7 +69,8 @@ AFRAME.registerComponent("registerevents", {
 });
 
 
-Game.serverUrl = window.location.protocol + "//" + window.location.hostname + ":8081";
+// Game.serverUrl = window.location.protocol + "//" + window.location.hostname + ":8081";
+Game.serverUrl = "/api";
 let game;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
   eggStatusText.init();
 
   // display messages on screen
-  messages.init(window.location.protocol + "//" + window.location.hostname + ":8081");
+  messages.init(Game.serverUrl);
 
   // overlay text for when an egg is found
   overlayText.init();
