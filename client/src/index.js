@@ -6,6 +6,26 @@ import { Game } from "./game.js";
 import * as messages from "./messages.js";
 import * as overlayText from "./overlayText.js";
 
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "firebase/auth";
+
+const fbApp = initializeApp({
+  apiKey: "AIzaSyC0Tt5PacDFlg6WuxD1BmUtnaAtj4X8dNg",
+  authDomain: "ar-egghunt.firebaseapp.com",
+  projectId: "ar-egghunt",
+  storageBucket: "ar-egghunt.appspot.com",
+  messagingSenderId: "926302276339",
+  appId: "1:926302276339:web:b60e4a2d13e4b666660586"
+});
+
+// auth
+const auth = getAuth();
+const authProvider = new GoogleAuthProvider();
+authProvider.setCustomParameters({
+  // prompt: "select_account",
+  hd: "thurstoncollege.org"
+});
+
 window.addEventListener("camera-init", (data) => {
   console.log("camera-init", data);
 })
@@ -69,7 +89,6 @@ AFRAME.registerComponent("registerevents", {
 });
 
 
-// Game.serverUrl = window.location.protocol + "//" + window.location.hostname + ":8081";
 Game.serverUrl = "/api";
 let game;
 
@@ -80,71 +99,47 @@ document.addEventListener("DOMContentLoaded", () => {
   eggStatusText.init();
 
   // display messages on screen
-  messages.init(Game.serverUrl);
+  messages.init(fbApp);
 
   // overlay text for when an egg is found
   overlayText.init();
 
-  // auto rejoin if username in localstorage
-  const savedUsername = localStorage.getItem("easter_egg_hunt_username");
-  const savedUuid = localStorage.getItem("easter_egg_hunt_uuid");
-  if (savedUsername && savedUuid) {
-    game = new Game(savedUsername, savedUuid);
-    game.fetchEggsFound().then(() => {
-      game.updatePointsDisplay();
-      game.joinLocal();
-      document.getElementById("welcome-dialog").classList.add("hide");
-      document.getElementById("game-hud").classList.remove("hide");
-    }).catch(err => {
-      if (err.message === "no player with that uuid") {
-        alert("Sorry! It looks like we couldn't recover your previous profile. Please enter a new name.");
-        localStorage.removeItem("easter_egg_hunt_username");
-        localStorage.removeItem("easter_egg_hunt_uuid");
+  if (navigator.userAgent) {
+    if (navigator.userAgent.includes("SamsungBrowser")) {
+      alert("Please open in Google Chrome for a better experience");
+    } else if (navigator.userAgent.includes("wv")) {
+      if (navigator.userAgent.includes("iPhone") || navigator.userAgent.includes("Mac")) {
+        alert("Please open in Safari for a better experience");
       } else {
-        console.error(err.message);
-        alert("Oh no! It looks like we couldn't connect you to the game. Please check your internet connection and refresh the page to try again.");
+        alert("Please open in Google Chrome for a better experience");
       }
-    });
-  } else {
-    localStorage.removeItem("easter_egg_hunt_username");
-    localStorage.removeItem("easter_egg_hunt_uuid");
+    }
   }
 
-
+  // sign in
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      game = new Game(user, fbApp);
+      document.getElementById("user-text").innerHTML = user.displayName;
+      document.getElementById("welcome-dialog").classList.add("hide");
+      document.getElementById("game-hud").classList.remove("hide");
+    } else {
+      game = null;
+      document.getElementById("welcome-dialog").classList.remove("hide");
+      document.getElementById("game-hud").classList.add("hide");
+    }
+  });
+  
+  // register form event handler in case not logged in
   document.getElementById("start-form").addEventListener("submit", event => {
-
-    const name = document.getElementById("start-form-name").value;
-
-    game = new Game(name);
-    game.joinOnServer()
-      .then(() => {
-        document.getElementById("welcome-dialog").classList.add("hide");
-        document.getElementById("game-hud").classList.remove("hide");
-
-        // save username and uuid to localstorage so can rejoin if page refreshed
-        localStorage.setItem("easter_egg_hunt_username", name);
-        localStorage.setItem("easter_egg_hunt_uuid", game.uuid);
-      })
-      .catch(error => {
-        if (error.message.includes("name already taken")) {
-          alert("Sorry! Someone else has already entered that name. Please try something else.")
-        } else {
-          alert("Could not join game: " + error);
-        }
-      });
-
+    signInWithRedirect(auth, authProvider);
+  });
+  
+  // sign out
+  document.getElementById("btn-sign-out").addEventListener("click", event => {
+    signOut(auth);
+    game = null;
+    document.getElementById("welcome-dialog").classList.remove("hide");
+    document.getElementById("game-hud").classList.add("hide");
   });
 });
-
-// document.addEventListener('gesturestart', function(e) {
-//   e.preventDefault();
-// });
-
-// document.addEventListener('gesturechange', function(e) {
-//   e.preventDefault();
-// });
-
-// document.addEventListener('gestureend', function(e) {
-//   e.preventDefault();
-// });
-

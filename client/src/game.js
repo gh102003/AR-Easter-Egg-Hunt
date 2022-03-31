@@ -1,115 +1,80 @@
-import { v4 as uuidv4 } from "uuid";
 import * as overlayText from "./overlayText.js";
+import { doc, getFirestore, updateDoc, arrayUnion, onSnapshot, setDoc, getDoc } from "firebase/firestore";
 
 export class Game {
 
   static serverUrl;
 
   name;
-  joinedGame = false;
+  uid;
   eggsFound = [];
+  dbRef;
+  isGameRunning = false;
 
-  // controlled by server, updated on responses
-  points = 0;
+  constructor(user, fbApp) {
+    this.name = user.displayName;
+    this.uid = user.uid;
 
-  constructor(name, uuid) {
-    this.name = name;
-    this.uuid = uuid || uuidv4();
-  }
+    const db = getFirestore(fbApp);
+    this.dbRef = doc(db, "eggsFound", user.uid);
 
-  joinOnServer() {
-    return fetch(Game.serverUrl + "/new-player",
-      {
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-        body: JSON.stringify({
-          name: this.name,
-          uuid: this.uuid
-        })
-      })
-      .then(res =>
-        res.json().then(data => {
-          if (res.ok) {
-            console.log("Successfully joined game on server");
-            this.joinLocal();
-          } else {
-            throw new Error(data.message);
-          }
-        })
-      );
-  }
+    // subscribe to changes in eggsFound in database and sync with local copy
+    onSnapshot(this.dbRef, doc => {
+      if (doc.data()) {
+        this.eggsFound = doc.data().eggs;
+      } else {
+        setDoc(this.dbRef, { eggs: [], score: 0, displayName: user.displayName });
+      }
+      this.updatePointsDisplay();
+    });
 
-  joinLocal() {
-    /**
-     * Sets up client to be logged in
-     */
-    this.joinedGame = true;
-    document.getElementById("user-text").innerHTML = this.name;
+    this.settingsDbRef = doc(db, "gameSettings", "gameState");
+    onSnapshot(this.settingsDbRef, doc => {
+      if (doc.data() !== undefined) {
+        this.isGameRunning = doc.data().running;
+      }
+    });
   }
 
   findEgg(markerId) {
 
     // skip if already found this egg or not joined properly
-    if (this.eggsFound.includes(markerId) || !this.joinedGame) {
+    if (this.eggsFound.includes(markerId)) {
       overlayText.show("You've already found this egg");
       overlayText.hide(5000);
       return;
     }
 
-    // tell server 
-    fetch(Game.serverUrl + "/egg-found",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          eggId: markerId,
-          uuid: this.uuid
-        })
-      })
-      .then(res => {
-        if (!res.ok) {
-          if (res.status === 403) {
-            overlayText.show("Game is not running");
-            overlayText.hide(5000);
-            throw new Error("Game is not running");
-          } else {
-            overlayText.show("Error! Please check your internet connection and refresh if the problem persists");
-            overlayText.hide(5000);
-            throw new Error("Error saving egg find on server");
-          }
-        } else return res.json();
-      })
-      .then(res => {
+    // check if game is running
+    if (!this.isGameRunning) {
+      overlayText.show("Game is not running");
+      overlayText.hide(5000);
+      console.error("Game is not running");
+      return;
+    }
 
-        // update locally
-        this.eggsFound.push(markerId);
+    // update database
+    updateDoc(this.dbRef, {
+      eggs: arrayUnion(markerId),
+      score: this.eggsFound.length + 1
+    }, { merge: true })
+      .then(() => {
         console.log(`Egg ${markerId} has been found!`);
         overlayText.show("New Egg Found!");
         overlayText.hide(5000);
 
-        this.points = res.points;
         this.updatePointsDisplay();
       })
       .catch(err => {
         // alert("Could not save egg find on server");
+        overlayText.show("Error! Please check your internet connection and refresh if the problem persists");
+        overlayText.hide(5000);
+        console.error("Error saving egg find on server");
         console.error(err);
       });
   }
 
-  fetchEggsFound() {
-    return fetch(Game.serverUrl + "/eggs-found?uuid=" + this.uuid)
-      .then(res => Promise.all([res, res.json()]))
-      .then(([res, data]) => {
-        if (!res.ok) {
-            throw new Error(data.message);
-        } else {
-          this.points = data.score;
-          this.eggsFound = data.eggsFound;
-        };
-      })
-  }
-
   updatePointsDisplay() {
-    document.getElementById("points-text").innerHTML = this.points.toString();
+    document.getElementById("points-text").innerHTML = this.eggsFound.length.toString();
   }
 }

@@ -6,8 +6,7 @@
 }
 
 body {
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
-  font-family: "Titillium Web";
+  font-family: "Titillium Web", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   width: 100%;
   margin: 0px;
   overflow: hidden;
@@ -53,8 +52,9 @@ body {
   right: 0;
   top: 30vh;
   text-align: center;
-  margin: 1em;
-  width: fit-content;
+  padding: 1em;
+  width: 100vw;
+  box-sizing: border-box;
   font-size: 2.4em;
   color: white;
   text-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
@@ -80,7 +80,7 @@ body {
   background-color: var(--col-1);
   color: white;
   padding: 1.5em;
-  width: min(30em, 90vw);
+  width: min(800px, 90vw);
   box-sizing: border-box;
   border-radius: 1.5em;
   box-shadow: 0 7px 0 5px var(--col-2), 0 14px 0 8px var(--col-3), 0 19px 10px 8px rgba(0, 0, 0, 0.1);
@@ -109,15 +109,13 @@ body {
   border-radius: 0.3em;
 }
 
-.welcome-dialog input[type="text"] {
-  width: 100%;
-}
-
 .welcome-dialog input[type="submit"] {
   background-color: var(--col-3);
   font-weight: bold;
-  margin-left: 0.5em;
   color: black;
+  display: block;
+  margin: 0 auto;
+  font-family: inherit;
 }
 
 /* #endregion welcome dialog */
@@ -132,6 +130,7 @@ body {
   color: white;
   padding: 0.5em 1em;
   min-width: 4em;
+  max-width: 35vw;
   border-radius: 1.5em 0 0 1.5em;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
@@ -159,7 +158,7 @@ body {
   color: white;
   padding: 0.5em 1em;
   min-width: 8em;
-  max-width: 40vw;
+  max-width: 55vw;
   border-radius: 0 1.5em 1.5em 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
@@ -169,10 +168,21 @@ body {
 }
 
 .user .user-text {
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: bold;
   line-height: 1;
-  padding: 0.15em 0;
+  padding: 0.1em 0 0 0;
+}
+
+#btn-sign-out {
+  appearance: none;
+  background-color: transparent;
+  text-decoration: underline;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.9em;
 }
 
 /* #endregion user */

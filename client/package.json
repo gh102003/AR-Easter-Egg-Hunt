@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev_server": "webpack serve --config webpack-dev.config.js",
+    "dev_watch": "webpack --watch --config webpack-dev.config.js",
     "dev": "webpack --config webpack-dev.config.js",
     "build": "webpack --mode production"
   },
@@ -13,7 +14,7 @@
   "dependencies": {
     "@ar-js-org/ar.js": "^3.3.3-es6-beta-02",
     "aframe": "^1.2.0",
-    "uuid": "^8.3.2"
+    "firebase": "^9.6.10"
   },
   "devDependencies": {
     "webpack": "^5.65.0",

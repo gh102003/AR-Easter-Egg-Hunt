@@ -13,7 +13,7 @@ export const init = () => {
         light.setAttribute("animation", {
           property: "light.intensity",
           from: 0,
-          to: 0.1,
+          to: 0.15,
           dur: 100,
           easing: "easeInOutCubic",
           startEvents: "light-ring-on"

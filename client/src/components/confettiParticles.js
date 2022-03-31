@@ -50,7 +50,7 @@ export const init = () => {
       }
     },
     createParticles: function () {
-      const particleCount = 500;
+      const particleCount = 200;
 
       const geometry = new THREE.PlaneGeometry(0.1, 0.1);
       const material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
@@ -101,7 +101,7 @@ export const init = () => {
         // random axis to rotate around -------
         this.rotationAxes[i] = new THREE.Vector3().random().normalize();
         // random velocity
-        this.velocities[i] = 0.001 + THREE.Math.randFloatSpread(0.0008);
+        this.velocities[i] = 0.0015 + THREE.Math.randFloatSpread(0.0008);
       }
       // #endregion individual properties for particles ==============================
 

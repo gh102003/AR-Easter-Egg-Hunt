@@ -1,7 +1,7 @@
 body {
     background-color: #b00;
     color: white;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: "Titillium Web", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -24,6 +24,7 @@ h1 {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
     margin: 1em 0 0 0;
     border-radius: 0.4em;
+    font-weight: 600;
 }
 
 .points-row:nth-child(1) {
@@ -37,4 +38,11 @@ h1 {
 
 .points-row:nth-child(3) {
     background-color: #e00;
+}
+
+.username-faded {
+    opacity: 0.8;
+    font-weight: normal;
+    display: inline-block;
+    min-width: 4em;
 }

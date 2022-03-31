@@ -8,6 +8,7 @@ export const init = () => {
       opacity: { type: "number", default: null },
       color: { type: "color", default: null }
     },
+    multiple: true,
     init: function () {
       this.el.addEventListener('model-loaded', this.update.bind(this));
     },

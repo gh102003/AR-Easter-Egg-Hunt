@@ -1,27 +1,29 @@
+import { collection, getFirestore, onSnapshot, query, where } from "firebase/firestore";
+
 let messages, messageContainerEl;
 
-export const init = serverUrl => {
+export const init = fbApp => {
 
     // message container in DOM
     messageContainerEl = document.createElement("div");
     messageContainerEl.className = "messages";
     document.body.appendChild(messageContainerEl);
 
-    // fetch from server every 30s
-    setInterval(() => fetchFromServer(serverUrl), 30 * 1000);
-
-    // fetch on page load
-    fetchFromServer(serverUrl);
-};
-
-const fetchFromServer = serverUrl => {
-    fetch(serverUrl + "/messages")
-        .then(res => res.json())
-        .then(res => {
-            messages = res.messages;
-            // console.log(messages);
-            updateDOM();
+    // snapshot listener in Firestore
+    const db = getFirestore();
+    const colRef = collection(db, "messages");
+    onSnapshot(query(colRef, where("expiryTime", ">", new Date())), snapshot => {
+        const fetchedMessages = [];
+        snapshot.forEach(doc => {
+            const { expiryTime, text } = doc.data();
+            fetchedMessages.push({ expiryTime: expiryTime.toDate(), text });
         });
+        messages = fetchedMessages;
+        updateDOM();
+    });
+
+    // update dom on a timer in case a message expires
+    setInterval(updateDOM, 5000);
 };
 
 const updateDOM = () => {
@@ -31,7 +33,7 @@ const updateDOM = () => {
 
     const now = new Date();
 
-    for (let message of messages.filter(m => new Date(m.expiryTime) >= now)) {
+    for (let message of messages.filter(m => m.expiryTime > now)) {
         const wrapper = document.createElement("div");
 
         wrapper.className = "message";
