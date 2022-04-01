@@ -3,3 +3,5 @@ markers inside qr/
 
 client/dist/bundle.js
 client/node_modules
+
+.cache

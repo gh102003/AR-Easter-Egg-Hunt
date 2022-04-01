@@ -8,7 +8,6 @@ export const init = () => {
       opacity: { type: "number", default: null },
       color: { type: "color", default: null }
     },
-    multiple: true,
     init: function () {
       this.el.addEventListener('model-loaded', this.update.bind(this));
     },
@@ -34,6 +33,39 @@ export const init = () => {
             node.material.color.set(this.data.color);
           }
           node.material.needsUpdate = true;
+        }
+      });
+
+    }
+  });
+
+  AFRAME.registerComponent("change-colors", {
+    schema: {
+      first: { type: "color" },
+      second: { type: "color" }
+    },
+    init: function () {
+      this.el.addEventListener('model-loaded', this.update.bind(this));
+    },
+    update: function () {
+      const mesh = this.el.getObject3D("mesh");
+      if (!mesh) {
+        return;
+      }
+
+      mesh.traverse(node => {
+        if (!node.material) {
+          return;
+        }
+        if (node.material.name === "EggMaterial001" || node.material.name === "EggMaterial003") {
+          if (this.data.first !== null) {
+            node.material.color.set(this.data.first);
+          }
+          node.material.needsUpdate = true;
+        } else if (node.material.name === "EggMaterial002" || node.material.name === "EggMaterial004") {
+          if (this.data.second !== null) {
+            node.material.color.set(this.data.second);
+          }
         }
       });
 

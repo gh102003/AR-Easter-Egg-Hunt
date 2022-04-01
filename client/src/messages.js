@@ -33,6 +33,10 @@ const updateDOM = () => {
 
     const now = new Date();
 
+    if (!messages) {
+        return;
+    }
+
     for (let message of messages.filter(m => m.expiryTime > now)) {
         const wrapper = document.createElement("div");
 

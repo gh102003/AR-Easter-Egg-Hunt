@@ -74,6 +74,20 @@ export class Game {
       });
   }
 
+  setupUI() {
+    const userText = document.getElementById("user-text");
+    // style TCC usernames
+    const name = this.name;
+    if (name[6] === "-") {
+      userText.innerHTML = `<span class="username-faded">${name.slice(0, 6)}</span> ${name.slice(7)}`;
+    } else {
+      userText.innerHTML = name;
+    }
+
+    document.getElementById("welcome-dialog").classList.add("hide");
+    document.getElementById("game-hud").classList.remove("hide");
+  }
+
   updatePointsDisplay() {
     document.getElementById("points-text").innerHTML = this.eggsFound.length.toString();
   }

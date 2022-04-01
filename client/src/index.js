@@ -116,25 +116,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // sign in
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      game = new Game(user, fbApp);
-      document.getElementById("user-text").innerHTML = user.displayName;
-      document.getElementById("welcome-dialog").classList.add("hide");
-      document.getElementById("game-hud").classList.remove("hide");
-    } else {
-      game = null;
-      document.getElementById("welcome-dialog").classList.remove("hide");
-      document.getElementById("game-hud").classList.add("hide");
+  if (auth.currentUser !== null) {
+    if (!game) {
+      game = new Game(auth.currentUser, fbApp);
     }
-  });
-  
+    game.setupUI();
+  }
+
+
   // register form event handler in case not logged in
   document.getElementById("start-form").addEventListener("submit", event => {
     signInWithRedirect(auth, authProvider);
   });
-  
+
   // sign out
   document.getElementById("btn-sign-out").addEventListener("click", event => {
     signOut(auth);
@@ -142,4 +136,23 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("welcome-dialog").classList.remove("hide");
     document.getElementById("game-hud").classList.add("hide");
   });
+});
+
+
+// sign in
+onAuthStateChanged(auth, user => {
+  if (user && !game) {
+    game = new Game(user, fbApp);
+
+    try {
+      game.setupUI();
+    } catch (error) {
+      // ui will be setup later
+    }
+
+  } else {
+    game = null;
+    document.getElementById("welcome-dialog").classList.remove("hide");
+    document.getElementById("game-hud").classList.add("hide");
+  }
 });

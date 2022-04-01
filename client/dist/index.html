@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html>
 
-<!-- AFrame (uses three.js) -->
-<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.loaders.min.js"></script>
-<script
-  src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
-<!-- AR.js: we import arjs version without NFT but with marker + location based support -->
-<!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> -->
-<script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.3/aframe/build/aframe-ar.js?min=1"></script>
+<head>
+  <!-- AFrame (uses three.js) -->
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.loaders.min.js"></script>
+  <script
+    src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
+  <!-- AR.js: we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <!-- <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.3/aframe/build/aframe-ar.js?min=1"></script> -->
+  
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet">
+  
+  <script src="bundle.js"></script>
+  <link rel="stylesheet" href="styles.css">
 
-<meta name="viewport"
-  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AR Easter Egg Hunt</title>
+</head>
 
-<!-- fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,600;1,700&display=swap"
-  rel="stylesheet">
-
-<script src="bundle.js"></script>
-<link rel="stylesheet" href="styles.css">
 
 <body>
-  <a-scene embedded arjs='detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3' vr-mode-ui="enabled: false">
+  <a-scene embedded arjs="detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3" vr-mode-ui="enabled: false">
     <!-- 'stats' component removed -->
     <!-- FIXME: test Samsung Internet zoom issues -->
 
@@ -36,6 +41,7 @@
       <a-asset-item id="egg-spotty" src="/assets/models/egg_spotty.gltf"></a-asset-item>
     </a-assets>
 
+    <!-- Twenty Separator -->
 
     <a-marker type="barcode" value="001" id="barcode-001" registerevents>
       <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
@@ -46,7 +52,8 @@
         animation__color="property: gltf-material-tweak.color; from: #ff00ff; to: #ff8888; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
         position="0 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0;">
       </a-entity>
-    </a-marker> -->
+      <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
+    </a-marker>
 
 
     <a-marker type="barcode" value="002" id="barcode-002" registerevents>
@@ -55,12 +62,9 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-stripey-2" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__yellow="material: EggMaterial003; opacity: 1.0; color: #ffbb00;"
-        gltf-material-tweak__orange="material: EggMaterial004; opacity: 1.0; color: #ff7700;">
+        position="0 0 0" change-colors="first: #ff7700; second: #ffdd00">
       </a-entity>
-      <a-entity id="light-ring" scale="2 2 2" light-ring></a-entity>
     </a-marker>
-
 
     <a-marker type="barcode" value="003" id="barcode-003" registerevents>
       <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
@@ -79,8 +83,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-spotty" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" rotation="270 0 0" gltf-material-tweak__red="material: EggMaterial003; opacity: 1.0; color: #ff0000;"
-        gltf-material-tweak__white="material: EggMaterial004; opacity: 1.0; color: #ffffff;">
+        position="0 0 0" rotation="270 0 0" change-colors="first: #ff0000; second: #ffeeee">
       </a-entity>
     </a-marker>
     
@@ -90,9 +93,8 @@
         scale="2 2 2">
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
-        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__blue="material: EggMaterial003; opacity: 1.0; color: #0055ff;"
-        gltf-material-tweak__white="material: EggMaterial004; opacity: 1.0; color: #ffffff;">
+        animation__position="property: position; from: 0 30 0; to: 0 2 0; dur: 4000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #0044ff; second: #eeeeff">
       </a-entity>
     </a-marker>
     
@@ -103,8 +105,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__green="material: EggMaterial003; opacity: 1.0; color: #00cc22;"
-        gltf-material-tweak__white="material: EggMaterial004; opacity: 1.0; color: #ffffff;">
+        position="0 0 0" change-colors="first: #00cc00; second: #eeffee">
       </a-entity>
       <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
     </a-marker>
@@ -116,7 +117,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__blue="material: EggMaterial001; opacity: 1.0; color: #0066ff;">
+        position="0 0 0" gltf-material-tweak="material: EggMaterial002; opacity: 1.0; color: #0066ff;">
       </a-entity>
     </a-marker>
     
@@ -127,7 +128,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        animation__color="property: gltf-material-tweak.color; from: #ff0000; to: #220000; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #ff0000; to: #440000; dur: 4000; easing: easeOutElastic; startEvents: parentMarkerFound"
         position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0;">
       </a-entity>
     </a-marker>
@@ -139,9 +140,9 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-spotty" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__orange="material: EggMaterial003; opacity: 1.0;">
+        position="0 0 0" change-colors="first: #0044ff; second: #ddeeff">
       </a-entity>
-      <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
+      <a-entity id="light-ring" scale="2 2 2" light-ring></a-entity>
     </a-marker>
     
     
@@ -151,8 +152,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" rotation="270 0 0" gltf-material-tweak__black="material: EggMaterial001; opacity: 1.0; color: #111111"
-        gltf-material-tweak__orange="material: EggMaterial002; opacity: 1.0; color: #ff7700">
+        position="0 0 0" rotation="270 0 0" change-colors="first: #00dd00; second: #112211">
       </a-entity>
     </a-marker>
 
@@ -163,7 +163,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        animation__color="property: gltf-material-tweak.color; from: #ff7700; to: #ff0000; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #ff7700; to: #ff0000; dur: 3000; easing: easeOutQuad; startEvents: parentMarkerFound"
         position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0">
       </a-entity>
     </a-marker>
@@ -175,8 +175,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__orange="material: EggMaterial001; opacity: 1.0; color: #ff7700"
-        gltf-material-tweak__green="material: EggMaterial002; opacity: 1.0; color: #00bb22">
+        position="0 0 0" change-colors="first: #ff7700; second: #00dd00">
       </a-entity>
     </a-marker> 
 
@@ -187,8 +186,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__purple="material: EggMaterial001; opacity: 1.0; color: #ff00ff"
-        gltf-material-tweak__orange="material: EggMaterial002; opacity: 1.0; color: #ff7700">
+        position="0 0 0" rotation="270 0 0" change-colors="first: #ff7700; second: #9900ff">
       </a-entity>
       <a-entity id="light-ring" scale="2 2 2" light-ring></a-entity>
     </a-marker>
@@ -200,8 +198,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-spotty" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" rotation="270 0 0" gltf-material-tweak__yellow="material: EggMaterial003; opacity: 1.0; color: #ffff00"
-        gltf-material-tweak__red="material: EggMaterial003; opacity: 1.0; color: #ff0000">
+        position="0 0 0" rotation="270 0 0" change-colors="first: #ff0000; second: #ffdd00">
       </a-entity>
     </a-marker>
 
@@ -212,7 +209,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        animation__color="property: gltf-material-tweak.color; from: #0033ff; to: #ff00ff; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #0033ff; to: #9900ff; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
         position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0">
       </a-entity>
     </a-marker>
@@ -224,8 +221,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__blue="material: EggMaterial001; opacity: 1.0; color: #0044ff"
-        gltf-material-tweak__green="material: EggMaterial002; opacity: 1.0; color: #00dd00">
+        position="0 0 0" change-colors="first: #00bb00; second: #0033ff">
       </a-entity>
       <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
     </a-marker>
@@ -237,8 +233,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-stripey-2" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" rotation="270 0 0" gltf-material-tweak__blue="material: EggMaterial003; opacity: 1.0; color: #0044ff"
-        gltf-material-tweak__red="material: EggMaterial004; opacity: 1.0; color: #ff0000">
+        position="0 0 0" rotation="270 0 0" change-colors="first: #0044ff; second: #ff0000">
       </a-entity>
     </a-marker>
 
@@ -249,8 +244,8 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" rotation="270 0 0" gltf-material-tweak__blue="material: EggMaterial001; opacity: 1.0; color: #0055ff"
-        gltf-material-tweak__orange="material: EggMaterial002; opacity: 1.0; color: #ff7700">
+        animation__rotation="property: rotation; from: 0 0 0; to: 0 180 0; dur: 4000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #0033ff; second: #ff7700">
       </a-entity>
     </a-marker>
 
@@ -261,8 +256,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        position="0 0 0" gltf-material-tweak__blue="material: EggMaterial001; opacity: 1.0; color: #0055ff"
-        gltf-material-tweak__yellow="material: EggMaterial002; opacity: 1.0; color: #ffdd00">
+        position="0 0 0" change-colors="first: #0033ff; second: #ffdd00">
       </a-entity>
     </a-marker>
 
@@ -273,7 +267,7 @@
       </a-box>
       <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
         animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
-        animation__color="property: gltf-material-tweak.color; from: #ff00ff; to: #ff8888; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #bb00ff; to: #ff6699; dur: 3000; easing: easeOutQuad; startEvents: parentMarkerFound"
         position="0 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0;">
       </a-entity>
     </a-marker>
@@ -374,9 +368,10 @@
 
 
   <div class="welcome-dialog" id="welcome-dialog">
-    <h1>Welcome to AR Egg Hunt! &#x1F95A;&#x1F430;</h1>
+    <!-- <h1>Welcome to AR Easter Egg Hunt! &#x1F95A;&#x1F430;</h1> -->
+    <img src="/assets/logo.png" class="logo" alt="AR Easter Egg Hunt">
     <p>For best results use Safari (on iPhone) or Google Chrome (on Android).</p>
-    <p>Your name and score will be shown on the leaderboard in The Hall.</p>
+    <p>Your name and score will be shown on the leaderboard in The Hall. All your data will be deleted at the end of the day.</p>
     <p>Click below to sign in with your school Google account:</p>
     <form id="start-form" onsubmit="return false;">
       <!-- <input type="text" id="start-form-name" autocomplete="name" minlength="3" maxlength="20" required></input> -->

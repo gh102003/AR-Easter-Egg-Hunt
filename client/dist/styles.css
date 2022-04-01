@@ -1,5 +1,5 @@
 :root {
-  --col-1: #b00;
+  --col-1: #c00;
   --col-2: #f80;
   --col-3: #ff0;
   --col-4: #ffa;
@@ -118,6 +118,10 @@ body {
   font-family: inherit;
 }
 
+.welcome-dialog .logo {
+  width: 100%;
+}
+
 /* #endregion welcome dialog */
 
 /* #region points */
@@ -125,13 +129,13 @@ body {
 .points {
   position: absolute;
   right: 0;
-  top: 1em;
+  top: 0.8em;
   background-color: var(--col-1);
   color: white;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.8em 0.5em 1em;
   min-width: 4em;
   max-width: 35vw;
-  border-radius: 1.5em 0 0 1.5em;
+  border-radius: 1.3em 0 0 1.3em;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -143,7 +147,7 @@ body {
   font-size: 1.3em;
   font-weight: bold;
   line-height: 1;
-  padding: 0.15em 0;
+  padding-bottom: 0.15em;
 }
 
 /* #endregion points */
@@ -153,13 +157,13 @@ body {
 .user {
   position: absolute;
   left: 0;
-  top: 1em;
+  top: 0.8em;
   background-color: var(--col-1);
   color: white;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em 0.5em 0.8em;
   min-width: 8em;
   max-width: 55vw;
-  border-radius: 0 1.5em 1.5em 0;
+  border-radius: 0 1.3em 1.3em 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
