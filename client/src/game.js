@@ -53,22 +53,16 @@ export class Game {
       return;
     }
 
-    // update database
+    console.log(`Egg ${markerId} has been found!`);
+    overlayText.show("New Egg Found!");
+    overlayText.hide(5000);
+
+    // update database (will update cached client copy if offline, then server copy when back online)
     updateDoc(this.dbRef, {
       eggs: arrayUnion(markerId),
       score: this.eggsFound.length + 1
     }, { merge: true })
-      .then(() => {
-        console.log(`Egg ${markerId} has been found!`);
-        overlayText.show("New Egg Found!");
-        overlayText.hide(5000);
-
-        this.updatePointsDisplay();
-      })
       .catch(err => {
-        // alert("Could not save egg find on server");
-        overlayText.show("Error! Please check your internet connection and refresh if the problem persists");
-        overlayText.hide(5000);
         console.error("Error saving egg find on server");
         console.error(err);
       });
