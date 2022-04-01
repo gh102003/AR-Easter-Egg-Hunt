@@ -139,19 +139,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// sign in
+// sign in or out
 onAuthStateChanged(auth, user => {
-  if (user && !game) {
-    game = new Game(user, fbApp);
-
-    try {
-      game.setupUI();
-    } catch (error) {
-      // ui will be setup later
+  if (user) {
+    if (!game) {
+      game = new Game(user, fbApp);
+  
+      try {
+        game.setupUI();
+      } catch (error) {
+        // ui will be setup later
+      }
     }
-
   } else {
     game = null;
+    // show welcome dialog if user is logged out or if page loads when not logged in
     document.getElementById("welcome-dialog").classList.remove("hide");
     document.getElementById("game-hud").classList.add("hide");
   }
