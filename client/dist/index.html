@@ -31,7 +31,6 @@
 <body>
   <a-scene embedded arjs="detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3" vr-mode-ui="enabled: false">
     <!-- 'stats' component removed -->
-    <!-- FIXME: test Samsung Internet zoom issues -->
 
     <a-assets>
       <a-asset-item id="egg" src="/assets/models/egg.gltf"></a-asset-item>
@@ -744,6 +743,236 @@
     <!-- #endregion third20 -->
     
     <!-- #region fourth20 -->
+    <a-marker type="barcode" value="061" id="barcode-061" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #ff00ff; to: #ff8888; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        position="0 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0;">
+      </a-entity>
+      <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="062" id="barcode-062" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey-2" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #ff7700; second: #ffdd00">
+      </a-entity>
+    </a-marker>
+
+    <a-marker type="barcode" value="063" id="barcode-063" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial002; opacity: 1.0; color: #00cc22;">
+      </a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="064" id="barcode-064" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-spotty" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" change-colors="first: #ff0000; second: #ffeeee">
+      </a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="065" id="barcode-065" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 15 0; to: 0 2 0; dur: 4000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #0044ff; second: #ffff55">
+      </a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="066" id="barcode-066" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #00cc00; second: #eeffee">
+      </a-entity>
+      <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="067" id="barcode-067" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" gltf-material-tweak="material: EggMaterial002; opacity: 1.0; color: #0066ff;">
+      </a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="068" id="barcode-068" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #ff0000; to: #440000; dur: 4000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0;">
+      </a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="069" id="barcode-069" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-spotty" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #0044ff; second: #ddeeff">
+      </a-entity>
+      <a-entity id="light-ring" scale="2 2 2" light-ring></a-entity>
+    </a-marker>
+    
+    
+    <a-marker type="barcode" value="070" id="barcode-070" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" change-colors="first: #00dd00; second: #112211">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="071" id="barcode-071" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #ff7700; to: #ff0000; dur: 3000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="072" id="barcode-072" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #ff7700; second: #00dd00">
+      </a-entity>
+    </a-marker> 
+
+
+     <a-marker type="barcode" value="073" id="barcode-073" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" change-colors="first: #ff7700; second: #9900ff">
+      </a-entity>
+      <a-entity id="light-ring" scale="2 2 2" light-ring></a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="074" id="barcode-074" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-spotty" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" change-colors="first: #ff0000; second: #ffdd00">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="075" id="barcode-075" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #0033ff; to: #9900ff; dur: 2000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="076" id="barcode-076" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #00bb00; second: #0033ff">
+      </a-entity>
+      <a-entity id="confetti-particles" scale="2 2 2" confetti-particles></a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="077" id="barcode-077" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey-2" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" rotation="270 0 0" change-colors="first: #0044ff; second: #ff0000">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="078" id="barcode-078" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-stripey" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__rotation="property: rotation; from: 0 0 0; to: 0 180 0; dur: 4000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #0033ff; second: #ff7700">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="079" id="barcode-079" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg-zig-zag" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        position="0 0 0" change-colors="first: #0033ff; second: #ffdd00">
+      </a-entity>
+    </a-marker>
+
+
+    <a-marker type="barcode" value="080" id="barcode-080" registerevents>
+      <a-box shadow="receive:true" material="color: #ffff55" geometry="height: 0.05" opacity="0.8" position="0 0.05 0"
+        scale="2 2 2">
+      </a-box>
+      <a-entity id="egg_entity" gltf-model="#egg" shadow="receive:false" scale="2 2 2"
+        animation__position="property: position; from: 0 0 0; to: 0 2 0; dur: 2000; easing: easeOutElastic; startEvents: parentMarkerFound"
+        animation__color="property: gltf-material-tweak.color; from: #bb00ff; to: #ff6699; dur: 3000; easing: easeOutQuad; startEvents: parentMarkerFound"
+        position="0 0 0" gltf-material-tweak="material: EggMaterial001; opacity: 1.0;">
+      </a-entity>
+    </a-marker>
+
+    <!-- #endregion fourth20 -->
     
     <!-- #region fifth20 -->
     <!-- Twenty Separator -->
