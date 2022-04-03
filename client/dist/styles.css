@@ -182,13 +182,18 @@ body {
   padding: 0.1em 0 0 0;
 }
 
-#btn-sign-out {
+.user .user-text .username-faded {
+  font-weight: normal;
+  opacity: 0.9;
+}
+
+.user-btn {
   appearance: none;
   background-color: transparent;
   text-decoration: underline;
   border: none;
-  color: inherit;
-  padding: 0;
+  color: white;
+  padding: 0 0.6em 0 0;
   font-family: inherit;
   font-size: 0.9em;
 }
