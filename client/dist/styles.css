@@ -122,6 +122,10 @@ body {
   font-family: inherit;
 }
 
+.welcome-dialog a {
+  color: #7cf;
+}
+
 .welcome-dialog .logo {
   width: 100%;
 }
